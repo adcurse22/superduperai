@@ -1,6 +1,13 @@
 import streamlit as st
+from decouple import config
+from langchain.llms import OpenAI
+from langchain.chains import LLMChain
+from langchain.prompts import PromptTemplate
 
+OPENAI_API_KEY = config('OPENAI_API_KEY')
 
+# Initialize the OpenAI LLM with LangChain
+llm = OpenAI(api_key=OPENAI_API_KEY)
 
 col1, col2 = st.columns(2)
 
@@ -8,21 +15,6 @@ col1, col2 = st.columns(2)
 with col1:
     st.header("Input Question")
     question = st.text_area("Enter your question here:", height=270)
-    with st.expander("Actor Settings", expanded=False):
-        # Create file uploader for Actor Face Image
-        face_image = st.file_uploader("Actor Face Image", type=["png", "jpg", "jpeg"], key='face_image',
-                                      help='Limit 200MB per file')
-
-        # Create file uploader for Actor Composition
-        composition = st.file_uploader("Actor Composition", type=["png", "jpg", "jpeg"], key='composition',
-                                       help='Limit 200MB per file')
-
-        # Create file uploader for Actor Style
-        style = st.file_uploader("Actor Style", type=["png", "jpg", "jpeg"], key='style',
-                                 help='Limit 200MB per file')
-
-    with st.expander("Video Settings", expanded=False):
-        pass
     if st.button("Generate Answer"):
         pass
 
